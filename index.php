@@ -16,4 +16,5 @@ $posts = DB\get('posts', $conn, 8);
 // }
 
 // Filter through and display in the view
-include 'index.view.php';
+$view_path = 'views/index.view.php';
+include 'views/layout.php';

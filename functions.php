@@ -21,6 +21,7 @@ function connect($config)
   }
 }
 
+// Constructing queries
 function query($query, $bindings, $conn)
 {
   $stmt = $conn->prepare($query);
@@ -43,4 +44,7 @@ function get($tableName, $conn, $limit = 10)
       return false;
     }
 }
+
+// function get_by_id($id) {
+// }
 
