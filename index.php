@@ -1,20 +1,18 @@
 <?php
 
-require 'functions.php';
+require 'blog.php';
 use Blog\DB;
-
-// Connect to db
-$conn = DB\connect($config);
-
-if ( !$conn ) die('Problem connecting to db');
 
 // Fetch all posts
 $posts = DB\get('posts', $conn, 8);
+
+view('index', array(
+  'posts' => $posts,
+  'name' => 'Igor'
+));
 
 // foreach($posts as $post) {
 //   print_r($post);
 // }
 
-// Filter through and display in the view
-$view_path = 'views/index.view.php';
-include 'views/layout.php';
+
