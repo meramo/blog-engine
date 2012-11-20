@@ -26,9 +26,7 @@ function query($query, $bindings, $conn)
 {
   $stmt = $conn->prepare($query);
   $stmt->execute($bindings);
-  $results = $stmt->fetchAll();
-
-  return $results ? $results : false;
+  return ($stmt->rowCount() > 0) ? $stmt : false;
 
 }
 
@@ -36,7 +34,7 @@ function query($query, $bindings, $conn)
 function get($tableName, $conn, $limit = 10)
 {
   try {
-      $result = $conn->query("SELECT * from $tableName LIMIT $limit");
+      $result = $conn->query("SELECT * from $tableName ORDER BY id DESC LIMIT $limit");
       return ( $result->rowCount() > 0 )
         ? $result
         : false;
@@ -48,10 +46,13 @@ function get($tableName, $conn, $limit = 10)
 // Getting a single post
 function get_by_id($id, $conn)
 {
-  return query(
+  $query = query(
     "SELECT * FROM posts WHERE id = :id LIMIT 1",
       array('id' => $id),
       $conn
   );
+  // return $query;
+  if ( $query ) {
+    return $query->fetchAll();
+  }
 }
-
